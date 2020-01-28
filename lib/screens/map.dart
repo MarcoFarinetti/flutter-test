@@ -7,50 +7,26 @@ class Map extends StatefulWidget {
   MapState createState() => MapState();
 }
 
-class MapState extends State<Map> {
-  GoogleMapController mapController;
-
-  Position _position;
+class MapState extends State<Map> with AutomaticKeepAliveClientMixin {
+  GoogleMapController _mapController;
 
   void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
-
-  @override
-  void initState() {
-    Geolocator().getLastKnownPosition().then((lastLocation) {
-      if (lastLocation != null) {
-        setState(() {
-          _position = new Position(
-              latitude: lastLocation.latitude,
-              longitude: lastLocation.longitude);
-        });
-      } else {
-        Geolocator()
-            .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
-            .then((currentLocation) {
-          setState(() {
-            _position = new Position(
-                latitude: currentLocation.latitude,
-                longitude: currentLocation.longitude);
-          });
-        });
-      }
+    _mapController = controller;
+    Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((currentLocation) {
+      _mapController.moveCamera(CameraUpdate.newLatLng(LatLng(currentLocation.latitude, currentLocation.longitude)));
     });
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_position == null) {
-      return new Container();
-    }
     return GoogleMap(
       onMapCreated: _onMapCreated,
       myLocationEnabled: true,
       myLocationButtonEnabled: true,
       initialCameraPosition: CameraPosition(
-          target: LatLng(_position.latitude, _position.longitude), zoom: 11.0),
+          target: LatLng(0.0, 0.0), zoom: 11.0),
       onLongPress: createEvent,
     );
   }
@@ -58,5 +34,9 @@ class MapState extends State<Map> {
   void createEvent(LatLng latLng) {
     showDialog(context: context, child: SimpleDialog(title: Text('Ciao'),));
   }
+
+  @override
+  bool get wantKeepAlive => true;
+
 
 }

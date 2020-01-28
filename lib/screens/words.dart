@@ -6,7 +6,7 @@ class RandomWords extends StatefulWidget {
   RandomWordsState createState() => RandomWordsState();
 }
 
-class RandomWordsState extends State<RandomWords> {
+class RandomWordsState extends State<RandomWords> with AutomaticKeepAliveClientMixin {
   final List<WordPair> _suggestions = <WordPair>[];
   final Set<WordPair> _saved = Set<WordPair>();
   final TextStyle _biggerFont = const TextStyle(fontSize: 18);
@@ -87,4 +87,7 @@ class RandomWordsState extends State<RandomWords> {
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
