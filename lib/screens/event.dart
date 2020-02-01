@@ -8,6 +8,10 @@ class Event extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return null;
+    return Card(child: TextFormField(
+      decoration: InputDecoration(
+          labelText: 'Nome evento'
+      ),
+    ));
   }
 }

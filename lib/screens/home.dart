@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/screens/event.dart';
 import 'package:flutter_test_app/screens/map.dart';
 import 'package:flutter_test_app/screens/words.dart';
 
@@ -10,13 +11,20 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> with SingleTickerProviderStateMixin {
   TabController _tabController;
   int _selectedIndex = 0;
+
+//  bool _isCreateEventButton = false;
+//  IconData _floatingButtonIcon = Icons.create;
+//  double _buttonHeight = 60;
+//  double _buttonWidth = 60;
+//  double _buttonIconSize = 25;
+//  MaterialColor _buttonColor = Colors.blue;
   static const List<String> titles = <String>['Home', 'Map'];
-  final List<Widget> _children = <Widget>[RandomWords(), Map()];
 
   @override
   void initState() {
     super.initState();
     _tabController = new TabController(length: 2, vsync: this);
+    _tabController.addListener(selectTab);
   }
 
   @override
@@ -28,6 +36,20 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+//      floatingActionButton: _selectedIndex == 1
+//          ? Container(
+//              height: _buttonHeight,
+//              width: _buttonWidth,
+//              child: FloatingActionButton(
+//                  child: Icon(
+//                    _floatingButtonIcon,
+//                    size: _buttonIconSize,
+//                  ),
+//                  backgroundColor: _buttonColor,
+//                  onPressed: () {
+//                    _isCreateEventButton ? createEvent() : createEventButton();
+//                  }))
+//          : null,
       appBar: AppBar(
         title: Text(titles[_selectedIndex]),
 //        actions: <Widget>[
@@ -60,15 +82,46 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
       bottomNavigationBar: Material(
           color: Colors.blue,
           child: new TabBar(controller: _tabController, tabs: <Tab>[
-            new Tab(icon: new Icon(Icons.home)),
-            new Tab(icon: new Icon(Icons.map)),
+            new Tab(icon: new Icon(Icons.account_circle)),
+            new Tab(icon: new Icon(Icons.location_on)),
           ])),
     );
   }
 
-  void selectTab(int index) {
+//  createEventButton() {
+//    setState(() {
+//      _isCreateEventButton = true;
+//      _buttonHeight = 80;
+//      _buttonWidth = 80;
+//      _floatingButtonIcon = Icons.event;
+//      _buttonColor = Colors.cyan;
+//      _buttonIconSize = 45;
+//    });
+//  }
+//
+//  defaultButton() {
+//    setState(() {
+//      _isCreateEventButton = false;
+//      _buttonHeight = 60;
+//      _buttonWidth = 60;
+//      _floatingButtonIcon = Icons.add;
+//      _buttonColor = Colors.blue;
+//      _buttonIconSize = 25;
+//    });
+//  }
+
+  selectTab() {
+    print("ciao");
     setState(() {
-      _selectedIndex = index;
+      _selectedIndex = _tabController.index;
     });
   }
+
+//  createEvent() {
+//    defaultButton();
+//    Navigator.push(
+//      context,
+//      MaterialPageRoute(builder: (context) => Event()),
+//    );
+//  }
 }
