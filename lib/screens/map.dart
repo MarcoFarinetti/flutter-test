@@ -26,6 +26,8 @@ class MapState extends State<Map> with AutomaticKeepAliveClientMixin {
       _mapController.animateCamera(CameraUpdate.newLatLng(
           LatLng(currentLocation.latitude, currentLocation.longitude)));
     });
+    // GET tutti gli eventi
+    // display tutti gli eventi
   }
 
   @override
@@ -34,7 +36,7 @@ class MapState extends State<Map> with AutomaticKeepAliveClientMixin {
     return Container(
       child: Stack(children: <Widget>[
         GestureDetector(
-            onTap: _isCreateEventButton ? defaultButton() : null,
+//            onTap: _isCreateEventButton ? defaultButton() : null,
             child: GoogleMap(
               onMapCreated: _onMapCreated,
               myLocationEnabled: true,
@@ -55,9 +57,10 @@ class MapState extends State<Map> with AutomaticKeepAliveClientMixin {
                     ),
                     backgroundColor: _buttonColor,
                     onPressed: () {
-                      _isCreateEventButton
-                          ? createEvent()
-                          : createEventButton();
+                      createEvent();
+//                      _isCreateEventButton
+//                          ? createEvent()
+//                          : createEventButton();
                     })))
       ]),
     );
@@ -88,7 +91,7 @@ class MapState extends State<Map> with AutomaticKeepAliveClientMixin {
   }
 
   createEvent() {
-    defaultButton();
+//    defaultButton();
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => Event()),
