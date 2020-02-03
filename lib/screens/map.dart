@@ -34,7 +34,6 @@ class MapState extends State<Map> with AutomaticKeepAliveClientMixin {
     return Container(
       child: Stack(children: <Widget>[
         GestureDetector(
-//              onLongPressStart: createEventLongPress,
             onTap: _isCreateEventButton ? defaultButton() : null,
             child: GoogleMap(
               onMapCreated: _onMapCreated,
